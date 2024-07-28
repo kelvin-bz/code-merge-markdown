@@ -77,7 +77,29 @@ console.log('Hello from file3.ts');
 
 ```
 
+## Default Exclude Patterns
 
+By default, the tool excludes common directories and files that are not typically part of the source code. You can customize these patterns by providing your own list of exclude patterns using the `-x` option.
+
+```typescript
+    const defaultExcludePatterns = [
+        '**/node_modules/**',    // Node.js
+        '**/dist/**',            // Common distribution directory
+        '**/build/**',           // Common build directory
+        '**/__pycache__/**',     // Python
+        '**/.venv/**',           // Python virtual environment
+        '**/venv/**',            // Python virtual environment
+        '**/.env/**',            // Python virtual environment
+        '**/site-packages/**',   // Python packages
+        '**/vendor/**',          // PHP
+        '**/target/**',          // Java
+        '**/bin/**',             // Go
+        '**/pkg/**',             // Go
+        '**/lib/**',             // Common library directory
+        '**/.mvn/**',            // Maven (Java)
+        '**/.gradle/**'          // Gradle (Java)
+    ];
+```
 ## License
 
 This project is licensed under the MIT License.
