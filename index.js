@@ -1,26 +1,16 @@
-import fs from 'fs-extra';
-import path from 'path';
-import glob from 'glob';
+const fs = require('fs-extra');
+const path = require('path');
+const glob = require('glob');
 
-interface MergeCodeFilesOptions {
-    inputDir: string;
-    outputFile: string;
-    fileExtensions?: string[];
-    includeFileNames?: boolean;
-    headerLevel?: number;
-    recursive?: boolean;
-    excludePatterns?: string[];
-}
-
-export async function mergeCodeFiles({
-                                         inputDir,
-                                         outputFile,
-                                         fileExtensions = [],
-                                         includeFileNames = true,
-                                         headerLevel = 2,
-                                         recursive = false,
-                                         excludePatterns = []
-                                     }: MergeCodeFilesOptions): Promise<void> {
+async function mergeCodeFiles({
+                                  inputDir,
+                                  outputFile,
+                                  fileExtensions = [],
+                                  includeFileNames = true,
+                                  headerLevel = 2,
+                                  recursive = false,
+                                  excludePatterns = []
+                              }) {
     // Validate parameters
     if (!inputDir || !outputFile) {
         throw new Error('inputDir and outputFile are required parameters.');
@@ -41,11 +31,12 @@ export async function mergeCodeFiles({
 
     for (const file of files) {
         const fileContent = await fs.readFile(file, 'utf-8');
+        const fileExtension = path.extname(file).substring(1); // Get file extension without the dot
         if (includeFileNames) {
             const header = '#'.repeat(headerLevel) + ' ' + path.relative(inputDir, file);
-            mergedContent += `${header}\n\n${fileContent}\n\n`;
+            mergedContent += `${header}\n\n\`\`\`${fileExtension}\n${fileContent}\n\`\`\`\n\n`;
         } else {
-            mergedContent += `${fileContent}\n\n`;
+            mergedContent += `\`\`\`${fileExtension}\n${fileContent}\n\`\`\`\n\n`;
         }
     }
 
@@ -53,3 +44,5 @@ export async function mergeCodeFiles({
     await fs.outputFile(outputFile, mergedContent);
     console.log(`Merged content written to ${outputFile}`);
 }
+
+module.exports = mergeCodeFiles;

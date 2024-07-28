@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/cli.js"
+    "start": "node cli.js"
   },
   "bin": {
-    "code-merge-markdown": "./dist/cli.js"
+    "code-merge-markdown": "./cli.js"
   },
   "keywords": [],
   "author": "",
@@ -17,12 +16,5 @@
     "fs-extra": "^11.2.0",
     "glob": "^11.0.0",
     "yargs": "^17.7.2"
-  },
-  "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
-    "@types/glob": "^8.1.0",
-    "@types/node": "^20.14.12",
-    "@types/yargs": "^17.0.32",
-    "typescript": "^5.5.4"
   }
 }

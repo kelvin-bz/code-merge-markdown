@@ -1,8 +1,9 @@
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
-import { mergeCodeFiles } from './index';
+#!/usr/bin/env node
 
-const argv = yargs(hideBin(process.argv))
+const yargs = require('yargs');
+const mergeCodeFiles = require('./index');
+
+const argv = yargs
     .option('inputDir', {
         alias: 'i',
         description: 'Directory containing the code files to merge',
@@ -47,15 +48,7 @@ const argv = yargs(hideBin(process.argv))
     })
     .help()
     .alias('help', 'H')
-    .argv as unknown as {
-    inputDir: string;
-    outputFile: string;
-    fileExtensions: string[];
-    includeFileNames: boolean;
-    headerLevel: number;
-    recursive: boolean;
-    excludePatterns: string[];
-};
+    .argv;
 
 mergeCodeFiles({
     inputDir: argv.inputDir,
