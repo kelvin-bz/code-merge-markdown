@@ -48,10 +48,17 @@ async function mergeCodeFiles({
         ignore: combinedExcludePatterns
     });
 
+    // Filter out directories
+    const fileList = files.filter(file => fs.lstatSync(file).isFile());
+
+    if (fileList.length === 0) {
+        throw new Error('No files found matching the given patterns.');
+    }
+
     // Merge files content
     let mergedContent = '';
 
-    for (const file of files) {
+    for (const file of fileList) {
         const fileContent = await fs.readFile(file, 'utf-8');
         const fileExtension = path.extname(file).substring(1); // Get file extension without the dot
         if (includeFileNames) {
