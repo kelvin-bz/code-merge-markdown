@@ -20,5 +20,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/kelvin-bz/code-merge-markdown.git"
-  }
+  },
+  "keywords": ["markdown", "code", "merge", "documentation"]
 }
